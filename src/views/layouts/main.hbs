@@ -1,0 +1,53 @@
+<html lang="en" style="overflow-y:scroll">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{! css }}
+    <link rel="stylesheet" href="/css/{{style}}" />
+    <title>{{title}}</title>
+  </head>
+  <body style="margin: 0;">
+    <header style="position: sticky; top: 0; z-index: 1">
+      <navbar>
+        <div style="background-color: black; padding: 10px 0px">
+          <ul
+            style="list-style: none; display: flex; justify-content: space-between"
+          >
+            <li style="padding: 0 5%;">
+              <a
+                style="color: white; text-decoration: none; font-weight: bold"
+                href="/"
+              >Home</a>
+            </li>
+            <li style="padding: 0 5%;">
+              <a
+                style="color: white; text-decoration: none; font-weight: bold"
+                href="/realTimeProducts"
+              >RealTime</a>
+            </li>
+            <li style="padding: 0 5%;">
+              <a
+                style="color: white; text-decoration: none; font-weight: bold"
+                href="/chat"
+              >Chat</a>
+            </li>
+            <li style="padding: 0 5%;">
+              <a
+                style="color: white; text-decoration: none; font-weight: bold"
+                href="/products"
+              >Products</a>
+            </li>
+            <li style="padding: 0 5%;">
+              <a
+                style="color: white; text-decoration: none; font-weight: bold"
+                href="/carts"
+              >Carts</a>
+            </li>
+          </ul>
+        </div>
+      </navbar>
+    </header>
+    {{{body}}}
+  </body>
+</html>
