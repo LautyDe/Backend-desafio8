@@ -1,6 +1,8 @@
+//libraries
 import express from "express";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
+//locals
 import routers from "./src/routers/index.routers.js";
 import { __dirname } from "./src/utils.js";
 import ProductManager from "./src/dao/mongo/productManagerMongo.js";
@@ -10,6 +12,8 @@ import "./src/db/dbConfig.js";
 
 const app = express();
 const PORT = 8080;
+
+//instances
 const productManager = new ProductManager();
 const chatManager = new ChatManager();
 const cartManager = new CartManager();
