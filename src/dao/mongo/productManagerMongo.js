@@ -20,7 +20,41 @@ export default class ProductManager {
 
   async getAll() {
     try {
-      const allProducts = await productsModel.find().lean();
+      const allProducts = await productsModel.find().lean(); //leer lean()
+      return allProducts;
+    } catch (error) {
+      console.log(`Error obteniendo todos los productos: ${error.message}`);
+    }
+  }
+
+  async getAllPaginated(limit, page, sort, query) {
+    try {
+      const search = query
+        ? {
+            stock: { $gte: 0 },
+            $or: [
+              { category: { $regex: query, $options: "i" } },
+              { title: { $regex: query, $options: "i" } },
+            ],
+          }
+        : {
+            stock: { $gte: 0 },
+          };
+
+      if (sort === "asc") {
+        sort = { price: 1 };
+      } else if (sort === "desc") {
+        sort = { price: -1 };
+      }
+
+      const options = {
+        page: page || 1,
+        limit: limit || 10,
+        sort: sort,
+        lean: true,
+      };
+
+      const allProducts = await productsModel.paginate(search, options);
       return allProducts;
     } catch (error) {
       console.log(`Error obteniendo todos los productos: ${error.message}`);

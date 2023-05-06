@@ -1,1 +1,25 @@
-<p>HOLA</p>
+<h1>Nuestros productos! 😎</h1>
+
+{{#if products.length}}
+  <section class="productsContainer">
+    {{#each products}}
+      <div class="productsCard">
+        <h3>Nombre: {{title}}</h3>
+        <h4>Descripcion: {{description}}</h4>
+        <h4>Precio: {{price}}</h4>
+        <img src="{{thumbnail}}" />
+        <div class="buttons">
+          <button
+            onclick="deleteProduct({{_id}})"
+            class="minusButton"
+          >-</button>
+          <button onclick="deleteProduct({{_id}})" class="plusButton">+</button>
+        </div>
+      </div>
+    {{/each}}
+  </section>
+{{else}}
+  <h3>Error cargando los productos, por favor intente recargar la pagina 🔃</h3>
+{{/if}}
+
+<script src="/js/products.js"></script>
