@@ -1,15 +1,36 @@
 import { Router } from "express";
-import ProductManager from "../../dao/mongo/productManagerMongo.js";
-import ChatManager from "../../dao/mongo/chatManagerMongo.js";
-import CartManager from "../../dao/mongo/cartManagerMongo.js";
+import ProductManager from "../../db/dao/mongo/productManagerMongo.js";
+import ChatManager from "../../db/dao/mongo/chatManagerMongo.js";
+import CartManager from "../../db/dao/mongo/cartManagerMongo.js";
 
 const router = Router();
 const productManager = new ProductManager();
 const chatManager = new ChatManager();
 const cartManager = new CartManager();
 
+//login
+router.get("/", (req, res) => {
+  res.render("login");
+});
+
+router.get("/register", (req, res) => {
+  res.render("register");
+});
+
+router.get("/registerError", (req, res) => {
+  res.render("registerError");
+});
+
+router.get("/loginError", (req, res) => {
+  res.render("loginError");
+});
+
+router.get("/logout", (req, res) => {
+  res.render("logout");
+});
+
 /* home */
-router.get("/", async (req, res) => {
+router.get("/home", async (req, res) => {
   const products = await productManager.getAll();
   res.render("home", {
     style: "home.css",

@@ -1,14 +1,18 @@
 //libraries
 import express from "express";
+import session from "express-session";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
+import mongoStore from "connect-mongo";
+import cookieParser from "cookie-parser";
 //locals
 import routers from "./src/routers/index.routers.js";
 import { __dirname } from "./src/utils.js";
-import ProductManager from "./src/dao/mongo/productManagerMongo.js";
-import ChatManager from "./src/dao/mongo/chatManagerMongo.js";
-import CartManager from "./src/dao/mongo/cartManagerMongo.js";
+import ProductManager from "./src/db/dao/mongo/productManagerMongo.js";
+import ChatManager from "./src/db/dao/mongo/chatManagerMongo.js";
+import CartManager from "./src/db/dao/mongo/cartManagerMongo.js";
 import "./src/db/dbConfig.js";
+import { URI } from "./src/utils.js";
 
 const app = express();
 const PORT = 8080;
@@ -22,6 +26,22 @@ const cartManager = new CartManager();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
+
+/* cookies */
+app.use(cookieParser());
+
+//mongo session
+app.use(
+  session({
+    secret: "SessionKey",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 10000 },
+    store: new mongoStore({
+      mongoUrl: URI,
+    }),
+  })
+);
 
 /* handlebars */
 app.engine(

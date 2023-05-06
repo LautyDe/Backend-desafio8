@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-
-const URI =
-  "mongodb+srv://lautydp:lautydp@cluster0.mbl12o1.mongodb.net/ecommerce?retryWrites=true&w=majority";
+import { URI } from "../utils.js";
 
 try {
   await mongoose.connect(URI);
