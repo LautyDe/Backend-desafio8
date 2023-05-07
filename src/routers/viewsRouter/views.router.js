@@ -32,7 +32,7 @@ router.get("/logout", (req, res) => {
 /* home */
 router.get("/products", async (req, res) => {
   const products = await productManager.getAll();
-  const userData = await req.session.email;
+  const userData = await req.session;
   res.render("products", {
     style: "products.css",
     title: "Products",
