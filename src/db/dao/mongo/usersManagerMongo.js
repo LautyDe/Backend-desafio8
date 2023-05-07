@@ -18,9 +18,8 @@ export default class UsersManager {
 
   async loginUser(email, password) {
     try {
-      const userOk = await usersModel.findOne({ email, password });
-      const user = { ...email, password };
-      if (userOk) {
+      const user = await usersModel.findOne({ email, password });
+      if (user) {
         return user;
       } else {
         throw new Error(`Usuario o contraseña invalidos.`);

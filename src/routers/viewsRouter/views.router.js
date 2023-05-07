@@ -30,16 +30,17 @@ router.get("/logout", (req, res) => {
 });
 
 /* home */
-router.get("/home", async (req, res) => {
+router.get("/products", async (req, res) => {
   const products = await productManager.getAll();
-  res.render("home", {
-    style: "home.css",
-    title: "Home",
+  const userData = await req.session.email;
+  res.render("products", {
+    style: "products.css",
+    title: "Products",
     products: products,
+    userData: userData,
   });
 });
 
-/* realTimeProducts */
 router.get("/realtimeproducts", async (req, res) => {
   const products = await productManager.getAll();
   res.render("realTimeProducts", {
@@ -49,22 +50,12 @@ router.get("/realtimeproducts", async (req, res) => {
   });
 });
 
-/* chat */
 router.get("/chat", async (req, res) => {
   const messages = await chatManager.getAllMessages();
   res.render("chat", {
     style: "chat.css",
     title: "Chat",
     messages: messages,
-  });
-});
-
-router.get("/products", async (req, res) => {
-  const products = await productManager.getAll();
-  res.render("products", {
-    style: "products.css",
-    title: "Products",
-    products: products,
   });
 });
 

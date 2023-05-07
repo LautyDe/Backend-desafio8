@@ -7,16 +7,18 @@ const usersManager = new UsersManager();
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const userOk = await usersManager.loginUser(email, password);
+  console.log(userOk);
   if (userOk) {
-    req.session["email"] = email;
-    req.session["password"] = password;
+    req.session["email"] = userOk.email;
+    req.session["password"] = userOk.password;
     req.session["logged"] = true;
     if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
-      req.session["admin"] = true;
+      req.session["rol"] = "admin";
     } else {
-      req.session["admin"] = false;
+      req.session["rol"] = "user";
     }
-    res.redirect("/home");
+    console.log(req.session);
+    res.redirect("/products");
   } else {
     res.redirect("/loginError");
   }
