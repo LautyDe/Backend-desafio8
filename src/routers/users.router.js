@@ -1,5 +1,6 @@
 import { Router } from "express";
 import UsersManager from "../db/dao/mongo/usersManagerMongo.js";
+import { hasData, compareData } from "../utils.js";
 
 const router = Router();
 const usersManager = new UsersManager();
@@ -25,7 +26,9 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const newUser = req.body;
+  const user = req.body;
+  const hashPassword = await hasData(user.password);
+  const newUser = { ...user, password: hashPassword };
   const userValidator = await usersManager.createUser(newUser);
   if (userValidator) {
     res.redirect("/");

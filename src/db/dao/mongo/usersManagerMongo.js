@@ -1,3 +1,4 @@
+import { compareData } from "../../../utils.js";
 import { usersModel } from "../../models/users.model.js";
 
 export default class UsersManager {
@@ -18,7 +19,15 @@ export default class UsersManager {
 
   async loginUser(email, password) {
     try {
-      const user = await usersModel.findOne({ email, password });
+      const user = await usersModel.findOne({ email });
+      if (!user) {
+        return res.redirect("/loginError");
+      }
+      const passwordOk = await compareData(password, user.password);
+      if (!passwordOk) {
+        return res.redirect("/loginError");
+      }
+
       if (user) {
         return user;
       } else {
